@@ -11,10 +11,9 @@ Classifies eclipse phase (partial, near-total, total) using trained classifiers
 Flags low-confidence measurements based on circle-fit error
 
     Results
-93% accuracy on a held-out test set (35 train / 15 test, stratified by phase)
-96% accuracy under cross-validation
-Validated with a confusion matrix, an ablation study, and a generalization test on an unseen frame
-Calibration check: 0.18% coverage measured on a known full-disk frame where ground truth is near zero
+- 97% accuracy on a held-out test set, 94% under 5-fold cross-validation (KNN)
+- With the coverage feature removed, still 97% held-out / 91% cross-validated, confirming the other measured features carry real signal
+- Validated with a confusion matrix and a coverage-ablation study; see eclipse_classifier_training.ipynb for the full training and evaluation code
 
     Approach
   Deliberately classical and deterministic, no generative AI, no neural networks. Every output is traceable by hand:
@@ -29,7 +28,7 @@ k-nearest-neighbors (k=5), logistic regression, and decision tree classifiers
   Python, OpenCV, NumPy, pandas, scikit-learn, openpyxl
 
     Data
-  50 frames captured with a Vaonis Hestia smart telescope during the April 2024 total eclipse (Smugglers Notch, VT). Two real-world data defects were identified and corrected: an instrument vignette ring (handled with size-based rejection) and a burned-in watermark strip (handled with row masking).
+120 frames captured with a Vaonis Hestia smart telescope during the April 2024 total eclipse (Smugglers Notch, VT).
 
     Output
   A structured measurements spreadsheet (12 columns per frame) plus a coverage-vs-time curve, validated against NASA reference contact times.
